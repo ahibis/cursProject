@@ -206,10 +206,13 @@ void Dack::Menu() //меню дека
 		\r12 ƒобавить элемент в конец дека\n \
 		\r13 «акончить работу с деком\n");
 }
+void Dack::Close() {
+	isOpen = false;
+}
 void Dack::Open() //начать работу с деком
 {
-	bool flag = true;
-	while (flag) //если работа с деком не завершена
+	isOpen = true;
+	while (isOpen) //если работа с деком не завершена
 	{
 		system("cls"); //очищаем экран
 		print();	   //выводим список
@@ -261,7 +264,7 @@ void Dack::Open() //начать работу с деком
 			addValueOfEnd(value);
 			break;
 		case 13:
-			flag = false;
+			Close();
 			break;
 		default:
 			printf("ќпци€ не действительна");

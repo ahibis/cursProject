@@ -324,16 +324,18 @@ void List::Menu()
 		\r18 Добавить элемент за указателем\n \
 		\r19 Закончить работу со списком\n");
 }
+void List::Close() {
+	isOpen = false;
+}
 void List::Open() //начать работу с списком
 {
-	bool flag = true;
-	system("cls");
-	while (flag) //если работа с списком не завершена
+	isOpen = true;
+	while (isOpen) //если работа с списком не завершена
 	{
 		system("cls"); //очищаем экран
 		print();	   //выводим список
 		Menu();		   //выводим меню
-		printf("???????=");
+		printf("Опция=");
 		int option;
 		Stack *value;
 		scanf_s("%i", &option); //вводим опцию
@@ -398,7 +400,7 @@ void List::Open() //начать работу с списком
 			addValueAfterPointer(value);
 			break;
 		case 19:
-			flag = false;
+			Close();
 			break;
 		default:
 			printf("Опция не действительна");

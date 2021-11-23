@@ -6,6 +6,7 @@
 
 class Stack
 {
+	bool isOpen = false;   //открыт ли стек
 	NodeStack *lastEl = 0; //ссылка на вершину стека
 	void Menu();		   //вывод меню
 
@@ -20,4 +21,5 @@ public:
 	void takeElement();			  //Взять элемент из стека
 	void changeElement();		  //Изменить значение вершины стека
 	void addElement(Dack *value); //Добавить элемент в стек
+	void Close();				  //Закончить работу со стеком
 };

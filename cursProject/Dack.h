@@ -5,6 +5,7 @@
 
 class Dack
 {
+	bool isOpen = false;							 //открыт ли дек
 	NodeDack *firstEl = 0;							 //ссылка на начальный элемент
 	NodeDack *lastEl = 0;							 //ссылка на конечный элемент
 	void addAfterNode(NodeDack *node, int value);	 //добавить элемент до node
@@ -29,4 +30,5 @@ public:
 	void changeValueOfEnd(int value);  //Изменить значение элемента в конце дека
 	void addValueOfHead(int value);	   //Добавить элемент в начало дека
 	void addValueOfEnd(int value);	   //Добавить элемент в конец дека
+	void Close();					   //Закончить работу с деком
 };

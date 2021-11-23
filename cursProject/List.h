@@ -6,6 +6,7 @@
 
 class List
 {
+	bool isOpen = false;							  //открыт ли список
 	NodeList *firstEl = 0;							  //ссылка на начальный элемент
 	NodeList *lastEl = 0;							  //ссылка на конечный элемент
 	NodeList *pointer = 0;							  //ссылка на указатель
@@ -39,4 +40,5 @@ public:
 	void changeValueBeforePointer();		  //Изменить значение элемента списка до указателя
 	void addValueAfterPointer(Stack *value);  //Добавить элемент до указателя
 	void addValueBeforePointer(Stack *value); //Добавить элемент за указателем
+	void Close();							  //Закончить работу со списком
 };

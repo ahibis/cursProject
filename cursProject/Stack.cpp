@@ -127,10 +127,13 @@ void Stack::Menu()
 		\r7 ƒобавить элемент в стек\n \
 		\r8 «акончить работу со стеком \n ");
 }
+void Stack::Close() {
+	isOpen = false;
+}
 void Stack::Open() //начать работу с стеком
 {
-	bool flag = true;
-	while (flag) //если работа с деком не завершена
+	isOpen = true;
+	while (isOpen) //если работа с деком не завершена
 	{
 		system("cls"); //очищаем экран
 		print();	   //выводим стек
@@ -165,7 +168,7 @@ void Stack::Open() //начать работу с стеком
 			addElement(value);
 			break;
 		case 8:
-			flag = false;
+			Close();
 			break;
 		default:
 			printf("ќпци€ не действительна");
