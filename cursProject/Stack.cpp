@@ -1,77 +1,97 @@
 #include "Stack.h"
-void Stack::clear() {
-	if (!lastEl) return;
-	NodeStack* el = lastEl;
-	NodeStack* next;
-	while (el) {
+void Stack::clear()
+{
+	if (!lastEl)
+		return;
+	NodeStack *el = lastEl;
+	NodeStack *next;
+	while (el)
+	{
 		deleteElement();
 		el = lastEl;
 	}
 	printf("—тек опустошен\n");
 }
-void Stack::isEmpty() {
-	if (!lastEl) {
+void Stack::isEmpty()
+{
+	if (!lastEl)
+	{
 		printf("стек пустой\n");
 		return;
 	}
 	printf("стек не пустой\n");
 }
-Stack::~Stack() {
+Stack::~Stack()
+{
 	clear();
 }
-void Stack::addElement(Dack* value) {
-	NodeStack* node = lastEl;
-	NodeStack* el = new NodeStack();
-	if (!el) {
+void Stack::addElement(Dack *value)
+{
+	NodeStack *node = lastEl;
+	NodeStack *el = new NodeStack();
+	if (!el)
+	{
 		printf("не удалось выделить пам€ть под дек\n");
 		return;
 	}
 	el->value = value;
-	if (!node) {
+	if (!node)
+	{
 		lastEl = el;
 		printf("дек был добавлен\n");
 		return;
 	}
-	if (node == lastEl) lastEl = el;
+	if (node == lastEl)
+		lastEl = el;
 	el->prev = node;
 	printf("дек был добавлен\n");
 	print();
 }
-bool Stack::deleteElement() {
-	NodeStack* node = lastEl;
-	if (!node) {
+bool Stack::deleteElement()
+{
+	NodeStack *node = lastEl;
+	if (!node)
+	{
 		printf("дек не может быть удален\n\n\n");
 		return false;
 	}
-	NodeStack* prev = node->prev;
-	if (!prev) {
+	NodeStack *prev = node->prev;
+	if (!prev)
+	{
 		lastEl = 0;
 		printf("дек был удален\n");
 		delete[] node;
 		return true;
 	}
-	if (prev) {
-		if (node == lastEl) lastEl = prev;
+	if (prev)
+	{
+		if (node == lastEl)
+			lastEl = prev;
 	}
 	printf("дек был удален\n");
 	delete[] node;
 	return true;
 }
-void Stack::changeElement() {
-	NodeStack* node = lastEl;
-	if (!node) {
+void Stack::changeElement()
+{
+	NodeStack *node = lastEl;
+	if (!node)
+	{
 		printf("элемента не существует\n");
 		return;
 	}
 	node->value->Open();
 	printf("дек изменен\n");
 }
-void Stack::print() {
-	if (!lastEl) {
+void Stack::print()
+{
+	if (!lastEl)
+	{
 		printf("дек пуст\n");
 	}
-	else {
-		NodeStack* el = lastEl;
+	else
+	{
+		NodeStack *el = lastEl;
 		while (el)
 		{
 			el->value->print();
@@ -80,22 +100,25 @@ void Stack::print() {
 	}
 }
 
-void Stack::showElement() {
-	NodeStack* node = lastEl;
-	if (node) {
+void Stack::showElement()
+{
+	NodeStack *node = lastEl;
+	if (node)
+	{
 		printf("значение элемента\n");
 		node->value->print();
 		return;
 	}
 	printf("элемента не существует\n");
 }
-void Stack::takeElement() {
+void Stack::takeElement()
+{
 	showElement();
 	deleteElement();
 }
 
-
-void Stack::Menu() {
+void Stack::Menu()
+{
 	puts("\n1 —делать стек пустым\n \
 		\r2 проверка стек пуст/не пуст\n \
 		\r3 ѕоказать значение вершины стека\n \
@@ -105,7 +128,8 @@ void Stack::Menu() {
 		\r7 ƒобавить элемент в стек\n \
 		\r8 «акончить работу со стеком \n ");
 }
-void Stack::Open() {
+void Stack::Open()
+{
 	bool flag = true;
 	system("cls");
 	while (flag)
@@ -115,7 +139,7 @@ void Stack::Open() {
 		Menu();
 		printf("¬ведите=");
 		int option;
-		Dack* value;
+		Dack *value;
 		scanf_s("%i", &option);
 		switch (option)
 		{
