@@ -20,7 +20,7 @@ void Dack::addAfterNode(NodeDack *node, int value) //добавление элемента после n
 	if (node->next) //если существует следующий элемент за node
 	{
 		el->next = node->next; //то делаем следующий элемент el равному следующему node
-		node->next->prev = el;
+		node->next->prev = el; // и наоборот
 	}
 	el->prev = node; //делаем предыдущим элементом el как node
 	node->next = el; //делаем следующий элемент node как el
@@ -40,7 +40,6 @@ void Dack::addBeforeNode(NodeDack *node, int value) //добавление элемента перед 
 		firstEl = el;
 		lastEl = el;
 		printf("элемент %i добавлен\n", value);
-		print();
 		return;
 	}
 	if (node == firstEl) // если node первый, то делаем el первым
@@ -53,7 +52,6 @@ void Dack::addBeforeNode(NodeDack *node, int value) //добавление элемента перед 
 	el->next = node; //делаем следующим элементом el как node
 	node->prev = el; //делаем предыдущим элемент node как el
 	printf("элемент %i добавлен\n", value);
-	print();
 }
 bool Dack::DeleteNode(NodeDack *node) //удаление узла node
 {
@@ -74,15 +72,15 @@ bool Dack::DeleteNode(NodeDack *node) //удаление узла node
 	}
 	if (next) //если существует следующий элемент
 	{
-		next->prev = prev; // предыдущий next элемента делаем предыдущим
-		if (node == firstEl)
-			firstEl = next; //первый элемент делаем равным следующим
+		next->prev = prev;	 // предыдущий next элемента делаем предыдущим
+		if (node == firstEl) //если node первый элемент
+			firstEl = next;	 //первый элемент делаем равным следующему
 	}
 	if (prev) //если существует предыдущий элемент
 	{
-		prev->next = next; // следующий prev элемента делаем предыдущим
-		if (node == lastEl)
-			lastEl = prev; //последний элемент делаем равным prev
+		prev->next = next;	//следующий prev элемента делаем следующим
+		if (node == lastEl) //если node последний элемент
+			lastEl = prev;	//последний элемент делаем равным prev
 	}
 	printf("элемент %i удален\n", node->value);
 	delete[] node; //удаляем node
