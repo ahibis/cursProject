@@ -4,7 +4,7 @@
 
 int main()
 {
-	setlocale(0, "");
-	List list;
-	list.Open();
+	setlocale(0, ""); //устанавливаем русский язык
+	List list;		  //создаем объект списка
+	list.Open();	  //открываем список
 }

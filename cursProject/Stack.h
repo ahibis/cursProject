@@ -6,18 +6,18 @@
 
 class Stack
 {
-	NodeStack* lastEl = 0;
-	void Menu();
-public:
-	void print();
-	~Stack();
-	void Open();
-	void clear();
-	void isEmpty();
-	void showElement();
-	bool deleteElement();
-	void changeElement();
-	void takeElement();
-	void addElement( Dack* value);
-};
+	NodeStack *lastEl = 0; //ссылка на вершину стека
+	void Menu();		   //вывод меню
 
+public:
+	~Stack();
+	void print();				  //вывод всех элементов стека
+	void Open();				  //Начать работу со стеком
+	void clear();				  //Сделать стек пустым
+	void isEmpty();				  //Проверка:стек пуст/не пуст
+	void showElement();			  //Показать значение вершины стека
+	bool deleteElement();		  //Удалить вершину стека
+	void takeElement();			  //Взять элемент из стека
+	void changeElement();		  //Изменить значение вершины стека
+	void addElement(Dack *value); //Добавить элемент в стек
+};
