@@ -1,98 +1,97 @@
 #include "Stack.h"
-void Stack::clear()
+void Stack::clear() //очищение стека
 {
-	if (!lastEl)
+	if (!lastEl) //если нет элементов выходим
 		return;
 	NodeStack *el = lastEl;
 	NodeStack *next;
-	while (el)
+	while (el) //итерационно удаляем все элементы в стеке
 	{
 		deleteElement();
 		el = lastEl;
 	}
 	printf("Стек опустошен\n");
 }
-void Stack::isEmpty()
+void Stack::isEmpty() // проверка на пустоту стека
 {
-	if (!lastEl)
+	if (!lastEl) //если не существует последнего элемента
 	{
 		printf("стек пустой\n");
 		return;
 	}
 	printf("стек не пустой\n");
 }
-Stack::~Stack()
+Stack::~Stack() //деструктор стека
 {
-	clear();
+	clear(); //очищаем все элементы
 }
-void Stack::addElement(Dack *value)
+void Stack::addElement(Dack *value) //добавление элемента в конец
 {
-	NodeStack *node = lastEl;
-	NodeStack *el = new NodeStack();
+	NodeStack *node = lastEl;		 // делаем узел после которого добавляем элемент как lastEl
+	NodeStack *el = new NodeStack(); //создаем новый узел
 	if (!el)
 	{
 		printf("не удалось выделить память под дек\n");
 		return;
 	}
-	el->value = value;
-	if (!node)
+	el->value = value; //изменяем значение нового узла
+	if (!node)		   //если node не определен делаем el первым в стеке
 	{
 		lastEl = el;
 		printf("дек был добавлен\n");
 		return;
 	}
-	if (node == lastEl)
+	if (node == lastEl) // если node последний, то делаем el последним
 		lastEl = el;
-	el->prev = node;
+	el->prev = node; //делаем предыдущим элементом el как node
 	printf("дек был добавлен\n");
-	print();
 }
-bool Stack::deleteElement()
+bool Stack::deleteElement() //удаление вершины дека
 {
-	NodeStack *node = lastEl;
-	if (!node)
+	NodeStack *node = lastEl; //делаем узел удаления как последний узел
+	if (!node)				  //если node не существует
 	{
 		printf("дек не может быть удален\n\n\n");
 		return false;
 	}
-	NodeStack *prev = node->prev;
-	if (!prev)
+	NodeStack *prev = node->prev; //ссылаемся на предыдущий элемент node
+	if (!prev)					  //если удаляем последний элемент, то очищаем весь стек
 	{
 		lastEl = 0;
 		printf("дек был удален\n");
 		delete[] node;
 		return true;
 	}
-	if (prev)
+	if (prev) //если существует предыдущий элемент
 	{
-		if (node == lastEl)
-			lastEl = prev;
+		if (node == lastEl) //если node последний элемент
+			lastEl = prev;	//последний элемент делаем равным prev
 	}
 	printf("дек был удален\n");
-	delete[] node;
+	delete[] node; //удаляем node
 	return true;
 }
-void Stack::changeElement()
+void Stack::changeElement() //изменение значения вершины
 {
 	NodeStack *node = lastEl;
-	if (!node)
+	if (!node) //если node не существет
 	{
 		printf("элемента не существует\n");
 		return;
 	}
-	node->value->Open();
+	node->value->Open(); //изменяем значение node
 	printf("дек изменен\n");
 }
-void Stack::print()
+void Stack::print() //вывод всех элементов дека
 {
-	if (!lastEl)
+	if (!lastEl) //если нет первого элемента
 	{
-		printf("дек пуст\n");
+		printf("стек пуст\n");
 	}
 	else
 	{
 		NodeStack *el = lastEl;
-		while (el)
+		while (el) //выводим все элемента стека через перенос строки
 		{
 			el->value->print();
 			el = el->prev;
@@ -100,21 +99,21 @@ void Stack::print()
 	}
 }
 
-void Stack::showElement()
+void Stack::showElement() //показать значение вершины
 {
-	NodeStack *node = lastEl;
+	NodeStack *node = lastEl; //указываем node как на последний элемент
 	if (node)
 	{
 		printf("значение элемента\n");
-		node->value->print();
+		node->value->print(); //выводим значение
 		return;
 	}
 	printf("элемента не существует\n");
 }
-void Stack::takeElement()
+void Stack::takeElement() //взять элемент из стека
 {
-	showElement();
-	deleteElement();
+	showElement();	 //показываем значение вершины
+	deleteElement(); //удаляем вершину стека
 }
 
 void Stack::Menu()
@@ -128,20 +127,19 @@ void Stack::Menu()
 		\r7 Добавить элемент в стек\n \
 		\r8 Закончить работу со стеком \n ");
 }
-void Stack::Open()
+void Stack::Open() //начать работу с стеком
 {
 	bool flag = true;
-	system("cls");
-	while (flag)
+	while (flag) //если работа с деком не завершена
 	{
-		system("cls");
-		print();
-		Menu();
+		system("cls"); //очищаем экран
+		print();	   //выводим стек
+		Menu();		   //выводим меню
 		printf("Введите=");
 		int option;
 		Dack *value;
-		scanf_s("%i", &option);
-		switch (option)
+		scanf_s("%i", &option); //вводим опцию
+		switch (option)			//для каждой опции вызываем связанную с ней функцию
 		{
 		case 1:
 			clear();
@@ -173,6 +171,6 @@ void Stack::Open()
 			printf("Опция не действительна");
 			break;
 		}
-		Sleep(500);
+		Sleep(500); //делаем задержку 0.5с
 	}
 }

@@ -13,7 +13,7 @@ void List::addAfterNode(NodeList *node, Stack *value) //добавление элемента посл
 		firstEl = el;
 		lastEl = el;
 		pointer = el;
-		printf("элемент %i добавлен\n");
+		printf("стек %i добавлен\n");
 		return;
 	}
 	if (node == lastEl) // если node последний, то делаем el последним
@@ -25,7 +25,7 @@ void List::addAfterNode(NodeList *node, Stack *value) //добавление элемента посл
 	}
 	el->prev = node; //делаем предыдущим элементом el как node
 	node->next = el; //делаем следующий элемент node как el
-	printf("элемент добавлен\n\n");
+	printf("стек добавлен\n\n");
 }
 void List::addBeforeNode(NodeList *node, Stack *value) //добавление элемента перед node
 {
