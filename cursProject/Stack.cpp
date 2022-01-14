@@ -27,6 +27,10 @@ Stack::~Stack() //деструктор стека
 }
 void Stack::addElement(Dack *value) //добавление элемента в конец
 {
+	if (depth >= maxDepth) {
+		printf("стек переполнен");
+		return;
+	}
 	NodeStack *node = lastEl;		 // делаем узел после которого добавляем элемент как lastEl
 	NodeStack *el = new NodeStack(); //создаем новый узел
 	if (!el)
@@ -38,12 +42,14 @@ void Stack::addElement(Dack *value) //добавление элемента в конец
 	if (!node)		   //если node не определен делаем el первым в стеке
 	{
 		lastEl = el;
+		depth++;
 		printf("дек был добавлен\n");
 		return;
 	}
 	if (node == lastEl) // если node последний, то делаем el последним
 		lastEl = el;
 	el->prev = node; //делаем предыдущим элементом el как node
+	depth++;
 	printf("дек был добавлен\n");
 }
 bool Stack::deleteElement() //удаление вершины дека
@@ -69,6 +75,7 @@ bool Stack::deleteElement() //удаление вершины дека
 	}
 	printf("дек был удален\n");
 	delete[] node; //удаляем node
+	depth--;
 	return true;
 }
 void Stack::changeElement() //изменение значения вершины
@@ -142,6 +149,11 @@ void Stack::Open() //начать работу с стеком
 		int option;
 		Dack *value;
 		scanf_s("%i", &option); //вводим опцию
+		if (!lastEl && option > 2 && option < 7) {
+			printf("операция не возможна, так как стек пуст\n");
+			Sleep(1000);
+			continue;
+		}
 		switch (option)			//для каждой опции вызываем связанную с ней функцию
 		{
 		case 1:
@@ -174,6 +186,6 @@ void Stack::Open() //начать работу с стеком
 			printf("Опция не действительна");
 			break;
 		}
-		Sleep(500); //делаем задержку 0.5с
+		Sleep(1000); //делаем задержку 1с
 	}
 }

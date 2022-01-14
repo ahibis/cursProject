@@ -13,7 +13,7 @@ void List::addAfterNode(NodeList *node, Stack *value) //добавление элемента посл
 		firstEl = el;
 		lastEl = el;
 		pointer = el;
-		printf("стек %i добавлен\n");
+		printf("стек добавлен\n");
 		return;
 	}
 	if (node == lastEl) // если node последний, то делаем el последним
@@ -127,6 +127,7 @@ void List::print() //вывод всех элементов списка
 	else
 	{
 		NodeList *el = firstEl;
+		printf("прямой\n");
 		while (el) //итерируемся по всем элементам списка
 		{
 			if (el == pointer) //если элемент равен указателю
@@ -139,6 +140,21 @@ void List::print() //вывод всех элементов списка
 			el->value->print(); //выводим значение элемента
 			printf("################\n");
 			el = el->next;
+		}
+		el = lastEl;
+		printf("обратный\n");
+		while (el) //итерируемся по всем элементам списка
+		{
+			if (el == pointer) //если элемент равен указателю
+			{
+				el->value->print(); //выводим значение элемента
+				printf("^^^^^^^^^^^^^^^^^^\n");
+				el = el->prev;
+				continue;
+			}
+			el->value->print(); //выводим значение элемента
+			printf("################\n");
+			el = el->prev;
 		}
 	}
 	printf("\n");
@@ -339,6 +355,11 @@ void List::Open() //начать работу с списком
 		int option;
 		Stack *value;
 		scanf_s("%i", &option); //вводим опцию
+		if (!firstEl && (option >2 && option < 17)) {
+			printf("операция не возможна, так как список пуст\n");
+			Sleep(1000);
+			continue;
+		}
 		switch (option)			//для каждой опции вызываем связанную с ней функцию
 		{
 		case 1:
@@ -406,6 +427,6 @@ void List::Open() //начать работу с списком
 			printf("Опция не действительна");
 			break;
 		}
-		Sleep(500); //делаем задержку 0.5с
+		Sleep(1500); //делаем задержку 0.5с
 	}
 }

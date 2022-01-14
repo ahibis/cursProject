@@ -1,6 +1,10 @@
 #include "Dack.h"
 void Dack::addAfterNode(NodeDack *node, int value) //добавление элемента после node
 {
+	if (depth >= maxDepth) {
+		printf("дек переполнен");
+		return;
+	}
 	NodeDack *el = new NodeDack(); //создаем новый узел
 	if (!el)
 	{
@@ -8,11 +12,12 @@ void Dack::addAfterNode(NodeDack *node, int value) //добавление элемента после n
 		return;
 	}
 	el->value = value; //изменяем значение нового узла
-	if (!node)		   //если node не определен делаем el первым в деке
+	if (!node) //если node не определен делаем el первым в деке
 	{
 		firstEl = el;
 		lastEl = el;
 		printf("элемент %i добавлен\n", value);
+		depth++;
 		return;
 	}
 	if (node == lastEl) // если node последний, то делаем el последним
@@ -24,10 +29,15 @@ void Dack::addAfterNode(NodeDack *node, int value) //добавление элемента после n
 	}
 	el->prev = node; //делаем предыдущим элементом el как node
 	node->next = el; //делаем следующий элемент node как el
+	depth++;
 	printf("элемент %i добавлен\n", value);
 }
 void Dack::addBeforeNode(NodeDack *node, int value) //добавление элемента перед node
 {
+	if (depth >= maxDepth) {
+		printf("дек переполнен");
+		return;
+	}
 	NodeDack *el = new NodeDack(); //создаем новый узел
 	if (!el)
 	{
@@ -35,11 +45,12 @@ void Dack::addBeforeNode(NodeDack *node, int value) //добавление элемента перед 
 		return;
 	}
 	el->value = value; //изменяем значение нового узла
-	if (!node)		   //если node не определен делаем el первым в деке
+	if (!node) //если node не определен делаем el первым в деке
 	{
 		firstEl = el;
 		lastEl = el;
 		printf("элемент %i добавлен\n", value);
+		depth++;
 		return;
 	}
 	if (node == firstEl) // если node первый, то делаем el первым
@@ -51,6 +62,7 @@ void Dack::addBeforeNode(NodeDack *node, int value) //добавление элемента перед 
 	}
 	el->next = node; //делаем следующим элементом el как node
 	node->prev = el; //делаем предыдущим элемент node как el
+	depth++;
 	printf("элемент %i добавлен\n", value);
 }
 bool Dack::DeleteNode(NodeDack *node) //удаление узла node
@@ -62,7 +74,7 @@ bool Dack::DeleteNode(NodeDack *node) //удаление узла node
 	}
 	NodeDack *prev = node->prev; //ссылаемся на предыдущий элемент node
 	NodeDack *next = node->next; //ссылаемся на последующий элемент node
-	if (!prev && !next)			 //если удаляем последний элемент, то очищаем весь дек
+	if (!prev && !next) //если удаляем последний элемент, то очищаем весь дек
 	{
 		firstEl = 0;
 		lastEl = 0;
@@ -72,18 +84,19 @@ bool Dack::DeleteNode(NodeDack *node) //удаление узла node
 	}
 	if (next) //если существует следующий элемент
 	{
-		next->prev = prev;	 // предыдущий next элемента делаем предыдущим
+		next->prev = prev; // предыдущий next элемента делаем предыдущим
 		if (node == firstEl) //если node первый элемент
-			firstEl = next;	 //первый элемент делаем равным следующему
+			firstEl = next; //первый элемент делаем равным следующему
 	}
 	if (prev) //если существует предыдущий элемент
 	{
-		prev->next = next;	//следующий prev элемента делаем следующим
+		prev->next = next; //следующий prev элемента делаем следующим
 		if (node == lastEl) //если node последний элемент
-			lastEl = prev;	//последний элемент делаем равным prev
+			lastEl = prev; //последний элемент делаем равным prev
 	}
 	printf("элемент %i удален\n", node->value);
 	delete[] node; //удаляем node
+	depth--;
 	return true;
 }
 void Dack::changeValueOfEl(NodeDack *node, int value) //изменение узла node
@@ -167,12 +180,12 @@ void Dack::deleteValueOfEnd() //удалить значение в конце дека
 void Dack::takeValueOfHead() //взять первый элемент
 {
 	showValueOfEl(firstEl); //показываем значение firstEl
-	DeleteNode(firstEl);	//удаляем узел firstEl
+	DeleteNode(firstEl); //удаляем узел firstEl
 }
 void Dack::takeValueOfEnd() //взять последний элемент
 {
 	showValueOfEl(lastEl); //показываем значение lastEl
-	DeleteNode(lastEl);	   //удаляем узел lastEl
+	DeleteNode(lastEl); //удаляем узел lastEl
 }
 void Dack::changeValueOfHead(int value) //изменить значение в начале дека
 {
@@ -193,7 +206,7 @@ void Dack::addValueOfEnd(int value) //добавить значение в концне дека
 void Dack::Menu() //меню дека
 {
 	puts("\n1 Сделать дек пустым\n \
-		\r2 Проверка:дек пуст/не пуст\n \
+		\r2 Проверка:дек пуст /не пуст\n \
 		\r3 Показать значение в начале дека\n \
 		\r4 Показать значение в конце дека\n \
 		\r5 Удалить начало дека\n \
@@ -215,16 +228,22 @@ void Dack::Open() //начать работу с деком
 	while (isOpen) //если работа с деком не завершена
 	{
 		system("cls"); //очищаем экран
-		print();	   //выводим список
-		Menu();		   //выводим меню
+		print(); //выводим список
+		Menu(); //выводим меню
 		printf("Введите=");
 		int option, value;
-		scanf_s("%i", &option);			 //вводим опцию
+		scanf_s("%i", &option); //вводим опцию
+		if ( !firstEl && option > 2  && option < 11) {
+			printf("операция не возможна, так как дек пуст\n");
+			Sleep(1000);
+			continue;
+		}
 		if (option >= 9 && option <= 12) //если опция от 9 до 12
 		{
 			printf("Значение=");
 			scanf_s("%i", &value); //вводим значение
 		}
+		
 		switch (option) //для каждой опции вызываем связанную с ней функцию
 		{
 		case 1:
@@ -270,6 +289,6 @@ void Dack::Open() //начать работу с деком
 			printf("Опция не действительна");
 			break;
 		}
-		Sleep(500); //делаем задержку 0.5с
+		Sleep(1000); //делаем задержку 1с
 	}
 }

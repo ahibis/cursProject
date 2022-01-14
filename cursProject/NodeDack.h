@@ -1,9 +1,9 @@
 #pragma once
-class NodeDack
+class NodeDack //класс узла дека
 {
 public:
-	NodeDack* next = 0;
-	NodeDack* prev = 0;
-	int value = 0;
+	NodeDack* next = 0;//указатель на следующий элемент
+	NodeDack* prev = 0;//указатель на предыдущий элемент
+	int value = 0;// значение дека
 };
 
